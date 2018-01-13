@@ -1,0 +1,9 @@
+import pandas as pd
+from scipy import stats
+import numpy as np
+
+
+df = pd.read_csv("..") # get dataset
+df.colunmns.values
+group = input() # input the group information
+analysis_name = input()
