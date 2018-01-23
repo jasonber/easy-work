@@ -1,36 +1,20 @@
 
 # coding: utf-8
 
-# In[1]:
-
-
 import pandas as pd
 from scipy import stats
 import numpy as np
 
 
-# In[2]:
-
-
 #读取文件
 df = pd.read_csv("/home/zhangzhiliang/Documents/DATA/project/guojibunansudan/nansudan-1208-ML.csv")
-
-
-# In[3]:
-
 
 #分组依据,参看有哪些属性
 df.columns.values
 
-
-# In[13]:
-
-
 #分组,手动录入
-group = [ '所属单位']
-group_1 = ['参加心理健康培训次数', '心理健康服务类型', '年龄分类', '海龄分类', '在目前项目所在地的时间（年）分类', '学历', '婚姻状况',
-     '子女（1-有；2-无）', '尼日尔中国商会您的职位是', '中石油职位', '假期时长分类（1-1个月及以下，2-1-2个月，3-2个月以上）',
-       '休假频率分类（1-3个月及以下，2-3-6个月，3-6个月及以上', 'GHQ分2类（1-很好；2-较差）']
+group = [ '']
+group_1 = ['']
 
 
 # In[12]:
