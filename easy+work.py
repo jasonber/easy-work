@@ -1,44 +1,49 @@
-
 # coding: utf-8
+# 功能:
+# 数据清理
+# 自动分组
+# 计算均值
+# pivot_table 统计分布数
+# 独立样本t检验\相关样本t检验\方差分析及事后检验
+# 做图
 
 import pandas as pd
-from scipy import stats
+from scipy import stats #统计库
 import numpy as np
+import scikit_posthocs as sp # 事后分析库
+from IPython.core.interactiveshell import InteractiveShell #设置jupyter notebook输出结果
 
+InteractiveShell.ast_node_interactivity = "all" #以表格形式输出所有的datafame
 
 #读取文件
-df = pd.read_csv("/home/zhangzhiliang/Documents/DATA/project/guojibunansudan/nansudan-1208-ML.csv")
+df = pd.read_csv()
 
 #分组依据,参看有哪些属性
 df.columns.values
+df.info()
 
 #分组,手动录入
-group = [ '']
-group_1 = ['']
-
-
-# In[12]:
+group = ['']
 
 
 #统计量,手动录入
-statistics = ['GHQ总分', '自我肯定', '抑郁', '焦虑', '职场表现总分', '工作投入', '团队促进', '成就感', '工作胜任',
-       '工作情绪', '组织认同', '离职倾向', '尽责性', '开放性', '神经质', '外倾-内倾', '宜人性',
-       '追求成就-尽责性', '谨慎-尽责性', '自律-尽责性', '自我效能-尽责性', '整洁-尽责性', '忠于职守-尽责性',
-       '冒险-开放性', '艺术兴趣-开放性', '情绪化-开放性', '想象力-开放性', '思考-开放性', '自由主义-开放性',
-       '放纵-神经质', '自我意识-神经质', '脆弱-神经质', '愤怒-神经质', '焦虑 -神经质', '抑郁-神经质',
-       '活动水平-内外倾', '坚持-内外倾', '开心-内外倾', '追求兴奋-内外倾', '合群-内外倾', '友善-内外倾',
-       '合作-宜人性', '道德感-宜人性', '利他-宜人性', '谦虚-宜人性', '同情心-宜人性', '信任-宜人性',
-       '消极（未反向）', '积极', '偏见得分（已反向）', '歧视得分（已反向）', '外派安全感受', '社会安全', '健康安全',
-       '工作场所安全',]
-
-
-# In[20]:
+statistics = ['']
 
 
 #分组统计,如何进行自动化的分组统计
-group_st = []
-n = 1
-for i in group_1:
-    group_st[n].append[df.groupby(i)]
-    n = n + 1
+def auto_group(x):
+       g = df[].unique()
+       args = []
+       for i in list(g):
+              args.append(df[df['海龄分类'] == i][statistics])
+
+              
+#方差分析及事后检验
+f, p =stats.f_oneway(*args)
+print(f, p)
+
+x= [list(args[1]), list(args[2]), list(args[3])]
+sp.posthoc_conover(x, group_col=x, val_col=statistics, p_adjust = 'holm')
+
+#独立样本t检验
 
