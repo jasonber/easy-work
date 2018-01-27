@@ -8,36 +8,49 @@
 # 做图
 
 import pandas as pd
-from scipy import stats #统计库
+from scipy import stats # 统计库
 import numpy as np
 import scikit_posthocs as sp # 事后分析库
-from IPython.core.interactiveshell import InteractiveShell #设置jupyter notebook输出结果
+from IPython.core.interactiveshell import InteractiveShell # 设置jupyter notebook输出结果
 
-InteractiveShell.ast_node_interactivity = "all" #以表格形式输出所有的datafame
+# pd输出格式
+InteractiveShell.ast_node_interactivity = "all" # 以表格形式输出所有的datafame
+pd.set_option("max_column", None)
+pd.set_option("max_row",None)
 
-#读取文件
+# 读取文件
 df = pd.read_csv()
 
-#分组依据,参看有哪些属性
+# 分组依据,参看有哪些属性
 df.columns.values
 df.info()
 
-#分组,手动录入
+# 建立分组信息
 group = ['']
+for i in group: # 建立新的values值列,为fenbu函数的values做准备
+    k = i+'2'
+    df[k]=df[i]
 
-
-#统计量,手动录入
+# 汇总统计信息
 statistics = ['']
 
+# 总体信息
+df.describe()
 
-#分组统计,如何进行自动化的分组统计
-def auto_group(x):
-       g = df[].unique()
-       args = []
-       for i in list(g):
-              args.append(df[df['海龄分类'] == i][statistics])
+# 各分组的统计结果
+def group_mean(x):
+    g_t = df.groupby(x)
+    return g_t[statistics].agg('mean')
 
-              
+# 人口学信息的分布情况
+def fenbu(x):
+       y = x +"2"
+       for c in group:
+              if x != c:
+                     return pd.pivot_table(df, index=x, columns=c ,values=y, aggfunc="count" )
+for i in group:# 输出全部的分组信息
+    fenbu(i)
+
 #方差分析及事后检验
 f, p =stats.f_oneway(*args)
 print(f, p)
