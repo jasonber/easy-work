@@ -30,6 +30,9 @@ group = ['']
 for i in group: # 建立新的values值列,为fenbu函数的values做准备
     k = i+'2'
     df[k]=df[i]
+#清理空值 
+for i in statistics:
+    df[i].fillna(df.mean, inplace= True)
 
 # 汇总统计信息
 statistics = ['']
@@ -59,4 +62,16 @@ x= [list(args[1]), list(args[2]), list(args[3])]
 sp.posthoc_conover(x, group_col=x, val_col=statistics, p_adjust = 'holm')
 
 #独立样本t检验
+ttest_group1=df[df['GHQ分2类（1-很好；2-较差）'] == 1]['GHQ总分']
+ttest_group2=df[df['GHQ分2类（1-很好；2-较差）'] == 2]['GHQ总分']
+
+group_mean = df.groupby('GHQ分2类（1-很好；2-较差）')
+group_mean['GHQ总分.1'].agg("mean")
+
+t, p = stats.ttest_ind(ttest_group1, ttest_group2)
+print(t, p)
+
+#事后检验
+x = pd.DataFrame({"k":[1, 2 , 4, 5, 6], "j":[1, 3, 5, 7, 66],"m":[11, 222, 444, 5655, 777]}).T
+sp.posthoc_conover(x, val_col=[0, 1, 2, 3, 4], group_col=["j","k","m"],p_adjust = 'holm') #why ?error
 
